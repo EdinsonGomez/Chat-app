@@ -15,7 +15,6 @@ export function socketController(socket, io) {
 
   socket.on('register-user', (data, callback) => {
     try {
-      console.log('register-user: ', data);
       usersManager.registerUser(data);
 
       const users = registerUser(data);
@@ -28,7 +27,6 @@ export function socketController(socket, io) {
         status: "ok"
       })
     } catch (error) {
-      console.log('error register user: ', error);
       callback({
         error: { message: error.message },
         status: "error",
@@ -38,7 +36,6 @@ export function socketController(socket, io) {
   });
 
   socket.on('reconnect-user', (data, callback) => {
-    console.log('reconnect user: ', data);
     
     const users = registerUser(data);
 
@@ -87,15 +84,13 @@ export function socketController(socket, io) {
       ...data,
       messageId,
     }
-    console.log('send-message: ', data);
-    console.log('roomName: ', roomName);
     const clientsInRoom = io.sockets.adapter.rooms.get(roomName);
 
     let roomData = {
       room: roomName,
       event: 'new-message'
     }
-    console.log('clientsInRoom: ', clientsInRoom);
+  
     if (!clientsInRoom || clientsInRoom.size === 1) {
       roomData = {
         room: data.to,

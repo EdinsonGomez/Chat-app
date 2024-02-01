@@ -25,7 +25,6 @@ function NicknameForm() {
       if (response.status === "error") {
         setError(response.error);
       } else if (response.data?.users) {
-        console.log('response user registered: ', response);
         setUserList(response.data?.users ?? []);
         setShow(false);
       }
@@ -46,7 +45,6 @@ function NicknameForm() {
   useEffect(() => {
     if (state.auth.nickname && !show) {
       socket.emit('reconnect-user', state.auth, (response) => {
-        console.log('response user reconnect: ', response);
         setUserList(response.data?.users ?? []);
       })
     }

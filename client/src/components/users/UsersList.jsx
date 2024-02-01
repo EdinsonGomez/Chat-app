@@ -8,7 +8,6 @@ function UserList({ children }) {
   const { state, dispatch } = useAppContext();
 
   const userConnectedListener = useCallback((data) => {
-    console.log('new user connected: ', data);
     if (state.auth.nickname) {
       dispatch({
         type: actionTypes.ADD_USER,
@@ -19,7 +18,6 @@ function UserList({ children }) {
   }, [state.auth]);
 
   const messageNotiListener = useCallback((message) => {
-    console.log('new notification message: ', message);
     dispatch({
       type: actionTypes.ADD_NOTIFICATION_MESSAGE,
       payload: { message }
